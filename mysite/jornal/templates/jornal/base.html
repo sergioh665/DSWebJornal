@@ -1,0 +1,34 @@
+<!--html base para templates-->
+<html>
+    <head>
+        <title>Jornal Interno</title>
+    </head>
+    <body>
+
+        <!--entrada/saída de usuário-->
+        <a href="{% url 'jornal:index' %}">Home</a>
+        {% if user.is_authenticated %}
+        &ensp;|&ensp;<b>Usuário conectado:</b> {{ user.username }}
+         (<a href="{% url 'logout' %}?next={{ request.path }}">Sair</a>)
+        {% else %}
+        &ensp;|&ensp;<a href="{% url 'login' %}?next={{ request.path }}">Fazer login</a>
+        {% endif %}
+
+        <h1>Bem-vindo ao Jornal Interno</h1>
+        <hr>
+        <h2>{% block titulo %}Lista das Edições Disponíveis Para Leitura{% endblock %}</h2>
+        {% block principal %}
+        {% endblock %}
+        <hr/>
+        {% block opcoes %}
+        <a href="{% url 'links:index' %}">Aplicações Disponíveis</a>
+        &ensp;|&ensp;<a href="{% url 'jornal:index' %}">Jornal Interno</a>
+        &ensp;|&ensp;<a href="{% url 'jornal:add_edicao' %}">Adicionar Nova Edição</a>
+        &ensp;|&ensp;<a href="{% url 'jornal:add_usuario' %}">Cadastrar Novo Usuario</a>
+
+        {% endblock %}
+    </body>
+</html>
+
+
+

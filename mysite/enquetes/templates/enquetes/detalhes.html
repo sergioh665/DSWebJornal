@@ -1,0 +1,30 @@
+{% extends 'enquetes/base.html' %}
+
+{% block logo %}{% endblock %}
+
+{% block h2 %}Detalhes da Enquete #{{ pergunta.id }} {% endblock %}
+
+{% block conteudo %}
+    <h3> {{ pergunta.texto }} </h3>
+    Escolha uma Alternativa desejada:<br/>
+    {% if error %}
+    <h3>{{ error }}</h3>
+    {% endif %}
+    <form action="{% url 'enquetes:votacao' pergunta.id %}"
+            method="post">
+        {% csrf_token %}
+        <ul>
+            {% for alt in pergunta.alternativa_set.all %}
+            <li>
+                <input type="radio" name="alt" value="{{ alt.id }}"
+                    id="alt{{ forloop.counter}}"/>
+                <label for="alt{{ forloop.counter}}">
+                    {{ alt.texto}}
+                </label>
+            </li>
+        {% endfor %}
+        </ul>
+        <input type="submit" value="Registre seu Voto">
+    </form>
+{% endblock %}
+

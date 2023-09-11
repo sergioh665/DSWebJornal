@@ -1,0 +1,31 @@
+{% extends 'jornal/base.html' %} <!-- utilizando o base.html -->
+
+{% block titulo %}&emsp;“{{ edicao.titulo }}”{% endblock %}
+
+{% block principal %}
+    <b><u>Termo</u></b>: {{ edicao.termo }} <p>
+
+        {% if edicao.noticia_set.count > 0 %}
+            {% for noticia in edicao.noticia_set.all %}
+            &emsp;&emsp;{{ noticia.texto }}</b><br/>
+            {% endfor %}
+        {% else %}
+        {% if user.is_authenticated %}
+            <p><b>⚠️ Ainda não há uma notícia, cadastre o texto abaixo</b></p>
+            {% if erro %}
+                <hr/>
+                <b>{{ erro }}</b>
+                <hr/>
+            {% endif %}
+            <form method="post" action="{% url 'jornal:add_nota' edicao.id %}">
+            {% csrf_token %}
+            <p>Texto: <input type="text" name="texto" size="60"/></p>
+            <input type="submit" value="Cadastrar Notícia"/>
+            </form>
+        {% endif %}
+    {% endif %}
+    <br>
+    <br>
+    <br>
+    <b><u>Autor</u></b>:&nbsp; {{ edicao.usuario.nome }}
+{% endblock %}

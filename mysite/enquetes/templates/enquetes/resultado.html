@@ -1,0 +1,19 @@
+{% extends 'enquetes/base.html' %}
+
+{% block h2 %}Resultado Parcial da enquete "{{ pergunta.texto}}"{% endblock %}
+
+{% block conteudo %}
+    <h3>{{ pergunta.texto}}</h3>
+    <ul>
+    {% for alt in pergunta.alternativa_set.all %}
+        <li>A opção ' {{ alt.texto}} ' tem {{ alt.quant_votos}}
+            voto{{ alt.quant_votos | pluralize}}
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block menu %}
+    {{ block.super }}
+    | <a href="{% url 'enquetes:detalhes' pergunta.id %}">Votar novamente</a>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'app/css/login.css' %}">
+    <title>Entrar</title>
+</head>
+<body>
+
+    <div class="content">
+        <h2>Entre em sua conta</h2>
+
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+
+            <label for="">Usuário</label>
+            <input type="text" name="username">
+
+            <label for="">Senha</label>
+            <input type="password" name="password">
+
+
+            <input type="submit" value="Entrar" class="submit"/>
+            <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+
+        <span href="">
+            Não possui conta? <a href="{% url 'register' %}">faça seu cadastro.</a>
+        </span>
+    </div>
+
+</body>
+</html>

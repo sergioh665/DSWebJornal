@@ -1,0 +1,16 @@
+{% extends 'enquetes/base.html' %}
+{% load static %}
+
+{% block conteudo %}
+    {% if lista_enquetes %}
+        <ul>
+            {% for pergunta in lista_enquetes %}
+                <li><a href="{% url 'enquetes:detalhes' pergunta.id %}">
+                    {{ pergunta.texto }}</a>
+                &nbsp;(<a href="{% url 'enquetes:resultado' pergunta.id%}">Ver parcial</a>)</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h3>Não existem enquetes cadastradas até o momento.</h3>
+    {% endif %}
+{% endblock %}

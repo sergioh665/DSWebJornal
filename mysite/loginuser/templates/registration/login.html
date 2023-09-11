@@ -1,0 +1,28 @@
+{% extends 'jornal/base.html' %} <!-- utilizando o base.html -->
+
+{% block titulo %}Conectar-se ao site{% endblock %}
+
+{% block principal%}
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p>Seu Usuário ({{ user.username }}) não tem permissão para visualizar está pagina.</p>
+            <p>Faça login com outro usuário:</p>
+        {% else %}
+            <p><b>⚠️ Realize o login para visualizar está página.</b></p>
+        {% endif %}
+    {% endif %}
+    {% if form.errors %}
+        <p><b>⚠️ Login ou Senha incorreta, tente novamente.</p></b>
+    {% endif %}
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <p>Login: {{ form.username }}</p>
+        <p>Senha: {{ form.password }}</p>
+        <input type="submit" value="&ensp;Entrar&ensp;"/>
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}"/>
+        {% else %}
+            <input type="hidden" name="next" value="{% url 'jornal:index' %}"/>
+        {% endif %}
+    </form>
+{% endblock %}

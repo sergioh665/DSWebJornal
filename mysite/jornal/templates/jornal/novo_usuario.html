@@ -1,0 +1,18 @@
+{% extends 'jornal/base.html' %} <!-- utilizando o base.html -->
+
+{% block titulo %}Cadastramento de Usuário{% endblock %}
+
+{% block principal %}
+    {% if erro %}
+        <p><b>{{ erro }} </p></b>
+    {% endif %}
+    <form method="post" action="{% url 'jornal:add_usuario' %}">
+        {% csrf_token %}
+        <p>Nome: <input type="text" name="nome"></p>
+        <p>User: <input type="text" name="user"/></p>
+        <p>E-mail: <input type="text" name="email"></p>
+        <p>Senha: <input type="password" name="senha1"></p>
+        <p>Confirmação de Senha: <input type="password" name="senha2"></p>
+        <input type="submit" value="Confirmar cadastro"/>
+    </form>
+{% endblock %}

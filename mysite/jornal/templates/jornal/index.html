@@ -1,0 +1,74 @@
+{% extends 'jornal/base.html' %} <!-- utilizando o base.html -->
+
+{% block titulo %}Lista das Edições Disponíveis Para Leitura{% endblock %}
+
+{% block principal %}
+    <hr/>
+    <form method="post" action="{% url 'jornal:pesquisar' %}">
+        {% csrf_token %}
+        Pesquise por palavra-chave em:
+        <input type="radio" name="pesquisa" value="titulo" />Título
+        <input type="radio" name="pesquisa" value="termo" checked/>Termo<br/>
+        <input type="text" name="texto"/>
+        <input type="submit" value="Pesquisar"/>
+    </form>
+    <hr/>
+
+    {% if edicoes %}
+       <ul>
+       {% for edicao in edicoes %}
+         <li>
+            <b><u>Título:</u> </b>&nbsp;“<a href="{% url 'jornal:edicao' edicao.id %}">{{ edicao.titulo }}</a>”<br/>
+            &emsp;<b><u>Termo</u></b>:&nbsp; {{ edicao.termo }}<br/>
+            &emsp; &emsp;<b><u>Autor</u></b>:&nbsp; {{ edicao.usuario.nome }}
+            {% if edicao.usuario.user == user %}
+                <br>&emsp; &emsp;<a href="{% url 'jornal:remove_edicao' edicao.id %}">(apagar edição)</a>
+            {% endif %}
+        <p>
+         </li>
+       {% endfor %}
+       </ul>
+    {% elif pesquisa %}
+        <p><b>Sua pesquisa não retornou nada, deseja criar uma nova Edição? <a href="{% url 'jornal:add_edicao' %}">criar</a></b><br>
+    {% else %}
+        <p><b>Nenhuma Edição disponível no momento, crie uma <a href="{% url 'jornal:add_edicao' %}">Aqui</a></b></p>
+    {% endif %}
+    {% if pesquisa %}
+        palavra-chave usada: <b>{{ filtro }}</b> (<a href="{% url 'jornal:index' %}">Limpar</a>)
+    {% endif %}
+
+{% endblock %}
+
+
+
+
+
+
+
+<!--versão antiga
+
+<html>
+    <head>
+        <title>Jornal Interno</title>
+    </head>
+    <body>
+        <h1>Bem-vindo ao Jornal Interno</h1>
+        <hr>
+        <h2>Lista das Edições Disponíveis Para Leitura</h2>
+        {% if edicoes %}
+           <ul>
+           {% for edicao in edicoes %}
+             <li><b><u>Título:</u> </b>&nbsp;“<a href="{% url 'jornal:edicao' edicao.id %}">{{ edicao.titulo }}</a>”<br/>
+                &emsp; <b><u>Termo</u></b>:&nbsp; {{ edicao.termo }}
+             </li>
+           {% endfor %}
+           </ul>
+        {% else %}
+           <h3>Nenhuma Edição disponível no momento!</h3>
+        {% endif %}
+        <hr>
+        <a href="{% url 'links:index' %}">Aplicações Disponíveis</a>
+        &ensp;|&ensp;<a href="{% url 'jornal:index' %}">Jornal Interno</a>
+        &ensp;|&ensp;<a href="{% url 'jornal:add_edicao' %}">Adicionar Nova Edição</a>
+    </body>
+</html> -->

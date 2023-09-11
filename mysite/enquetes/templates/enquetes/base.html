@@ -1,0 +1,26 @@
+{% load static %}
+
+<html>
+    <head>
+        <title> {% block titulo %}App Enquetes{% endblock %}</title>
+        {% block estilo %}
+        <link rel="stylesheet" type="text/css"
+            href="{% static 'enquetes/css/style.css' %}" />
+        {% endblock %}
+    </head>
+    <body>
+        <h1>{% block h1 %}Aplicação de Enquetes{% endblock %}</h1>
+        {% block logo%}
+        <img src="{% static 'enquetes/img/quest.jpg' %}" width="300" />
+        {% endblock %}
+        <h2>{% block h2 %}Lista das Enquetes Cadastradas{% endblock %}</h2>
+
+        {% block conteudo %}{% endblock %}
+
+        <hr/>
+        {% block menu%}
+                <a href="{% url 'links:index' %}">Links Projetos</a>
+        | <a href="{% url 'enquetes:index' %}">Adicionar Nova Pergunta</a>
+        {% endblock %}
+    </body>
+</html>

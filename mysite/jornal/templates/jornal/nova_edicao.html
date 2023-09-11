@@ -1,0 +1,54 @@
+{% extends 'jornal/base.html' %} <!-- utilizando o base.html -->
+
+{% block titulo %}Crie uma nova Edição{% endblock %}
+
+{% block principal %}
+    {% if form.errors %}
+        <p><b>⚠️ Preencha o campos corretamente.</p></b>
+    {% endif %}
+
+    <form method="post" action="{% url 'jornal:add_edicao' %}"}>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Criar Nova Edição"/>
+    </form>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- versão antiga
+<html>
+    <head>
+        <title>Jornal Interno</title>
+    </head>
+    <body>
+        <h1>Jornal Interno</h1>
+        <h3>Cadastrar nova Edição</h3>
+        {% if erro%}
+            <hr/>
+            <br>{{ erro }}<br/>
+            <hr/>
+        {% endif %}
+        <form method="post" action="{% url 'jornal:add_edicao' %}">
+            {% csrf_token %}
+            <p><b>Título:</b><br/> <input type="text" size="50" name="titulo"/></p>
+            <p><b>Termo:</b><br/> <input type="text" size="50" name="termo"/></p>
+            <input type="submit" value="Enviar Nova Edição"/>
+        </form>
+        <hr/>
+        <a href="{% url 'links:index' %}">Links Projetos</a>
+            | <a href="{% url 'jornal:index' %}">Voltar</a>
+    </body>
+</html>
+-->

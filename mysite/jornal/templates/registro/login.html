@@ -1,0 +1,33 @@
+<!--{% extends 'jornal/base.html' %}  utilizando o base.html
+
+{% block titulo %}Conectar-se ao site{% endblock %}
+
+{% block principal%}
+    {% if form.errors %}
+        <p>Login e senha inválidos. Por favor, tente novamente!</p>
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p>O seu usuário ({{ user.username }}) não lhe dá acesso à
+            funcionalidade desejada.</p>
+            <p>Faça login com outro usuário que lhe dê acesso a mesma:</p>
+        {% else %}
+            <p>Faça login para visualizar a página desejada:</p>
+        {% endif %}
+    {% endif %}
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <p>Login: {{ form.username }}</p>
+        <p>Senha: {{ form.password }}</p>
+        <input type="submit" value="Efetuar login"/>
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}"/>
+        {% else %}
+            <input type="hidden" name="next" value="{% url 'jornal:index' %}"/>
+        {% endif %}
+    </form>
+    <hr/>
+    Não possui cadastro? Então,
+    <a href="{% url 'jornal:add_usuario' %}">faça o seu cadastro aqui</a>!
+{% endblock %} -->
